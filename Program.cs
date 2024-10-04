@@ -22,5 +22,12 @@ SecretClientOptions options = new SecretClientOptions()
 var keyVaultUri = config["KeyVault:Uri"] ?? throw new ArgumentNullException("KeyVault:Uri configuration is missing");
 var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential(), options);
 
-KeyVaultSecret secret = client.GetSecret("my-secret");
-Console.WriteLine(secret.Value);
+try
+{
+  KeyVaultSecret secret = client.GetSecret("my-secret");
+  Console.WriteLine(secret.Value);
+}
+catch (Exception ex)
+{
+  Console.WriteLine(ex.Message);
+}
